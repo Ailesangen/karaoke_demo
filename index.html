@@ -418,6 +418,51 @@
       .gallery-item:first-child { grid-column: auto; grid-row: auto; aspect-ratio: 4/3; }
       nav .phone-link { display: none; }
     }
+
+    /* ===== SINGING CHARACTERS ===== */
+    .singer {
+      position: fixed;
+      bottom: 0;
+      z-index: 50;
+      pointer-events: none;
+      overflow: visible;
+      width: 90px;
+    }
+    .singer-left  { left: -110px;  transition: left  .75s cubic-bezier(.34,1.56,.64,1); }
+    .singer-right { right: -110px; transition: right .75s cubic-bezier(.34,1.56,.64,1); }
+    .singer-left.visible  { left: 0; }
+    .singer-right.visible { right: 0; }
+
+    .singer-flip { transform: scaleX(-1); display: inline-block; }
+
+    @keyframes singerBob {
+      0%   { transform: rotate(-5deg) translateY(0px);  }
+      100% { transform: rotate(5deg)  translateY(-9px); }
+    }
+    .singer svg {
+      display: block;
+      animation: singerBob .45s ease-in-out infinite alternate;
+      filter: drop-shadow(0 0 18px rgba(232,180,74,.6));
+    }
+
+    .music-note {
+      position: absolute;
+      pointer-events: none;
+      font-size: 1.25rem;
+      animation: noteFloat 1.8s ease-out forwards;
+      user-select: none;
+    }
+    @keyframes noteFloat {
+      0%   { opacity: 0; transform: translateY(0)     scale(.75) rotate(-8deg); }
+      18%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-105px) scale(1.1) rotate(22deg); }
+    }
+
+    @media (max-width: 500px) {
+      .singer { width: 64px; }
+      .singer svg { width: 64px; height: auto; }
+      .music-note { font-size: .9rem; }
+    }
   </style>
 </head>
 <body>
@@ -662,6 +707,112 @@
     </div>
     <p class="copy">© 2026 Выездное Караоке. Все права защищены.</p>
   </footer>
+
+
+  <!-- ===== SINGING CHARACTERS ===== -->
+  <div class="singer singer-left" id="singer-left" aria-hidden="true">
+    <svg width="90" height="132" viewBox="0 0 90 132" xmlns="http://www.w3.org/2000/svg">
+      <!-- Head -->
+      <circle cx="45" cy="21" r="18" fill="#e8b44a" stroke="#f5d07a" stroke-width="1.5"/>
+      <!-- Squinting happy eyes -->
+      <path d="M36 18 Q39.5 15 43 18" stroke="#0a0a0f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M47 18 Q50.5 15 54 18" stroke="#0a0a0f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <!-- Cheeks -->
+      <circle cx="33" cy="24" r="5" fill="rgba(220,80,60,.22)"/>
+      <circle cx="57" cy="24" r="5" fill="rgba(220,80,60,.22)"/>
+      <!-- Singing mouth (open O) -->
+      <ellipse cx="45" cy="29" rx="6.5" ry="5.5" fill="#1a0505"/>
+      <ellipse cx="45" cy="30" rx="4.5" ry="3.5" fill="#c0392b"/>
+      <!-- Body -->
+      <line x1="45" y1="39" x2="45" y2="83" stroke="#e8b44a" stroke-width="4" stroke-linecap="round"/>
+      <!-- Left arm raised -->
+      <line x1="45" y1="54" x2="17" y2="34" stroke="#e8b44a" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="14" cy="31" r="5.5" fill="#e8b44a"/>
+      <!-- Right arm — holds mic -->
+      <line x1="45" y1="54" x2="71" y2="37" stroke="#e8b44a" stroke-width="4" stroke-linecap="round"/>
+      <!-- Mic head -->
+      <ellipse cx="75" cy="31" rx="5.5" ry="6.5" fill="#888" stroke="#bbb" stroke-width="1.5"/>
+      <!-- Mic handle -->
+      <rect x="72.5" y="37" width="5" height="11" rx="2.5" fill="#666"/>
+      <!-- Legs -->
+      <line x1="45" y1="83" x2="27" y2="120" stroke="#e8b44a" stroke-width="4" stroke-linecap="round"/>
+      <line x1="45" y1="83" x2="63" y2="120" stroke="#e8b44a" stroke-width="4" stroke-linecap="round"/>
+      <!-- Feet -->
+      <line x1="27" y1="120" x2="14" y2="124" stroke="#e8b44a" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="63" y1="120" x2="76" y2="124" stroke="#e8b44a" stroke-width="3.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="singer singer-right" id="singer-right" aria-hidden="true">
+    <div class="singer-flip">
+      <svg width="90" height="132" viewBox="0 0 90 132" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="45" cy="21" r="18" fill="#e8b44a" stroke="#f5d07a" stroke-width="1.5"/>
+        <path d="M36 18 Q39.5 15 43 18" stroke="#0a0a0f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M47 18 Q50.5 15 54 18" stroke="#0a0a0f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <circle cx="33" cy="24" r="5" fill="rgba(220,80,60,.22)"/>
+        <circle cx="57" cy="24" r="5" fill="rgba(220,80,60,.22)"/>
+        <ellipse cx="45" cy="29" rx="6.5" ry="5.5" fill="#1a0505"/>
+        <ellipse cx="45" cy="30" rx="4.5" ry="3.5" fill="#c0392b"/>
+        <line x1="45" y1="39" x2="45" y2="83" stroke="#e8b44a" stroke-width="4" stroke-linecap="round"/>
+        <line x1="45" y1="54" x2="17" y2="34" stroke="#e8b44a" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="14" cy="31" r="5.5" fill="#e8b44a"/>
+        <line x1="45" y1="54" x2="71" y2="37" stroke="#e8b44a" stroke-width="4" stroke-linecap="round"/>
+        <ellipse cx="75" cy="31" rx="5.5" ry="6.5" fill="#888" stroke="#bbb" stroke-width="1.5"/>
+        <rect x="72.5" y="37" width="5" height="11" rx="2.5" fill="#666"/>
+        <line x1="45" y1="83" x2="27" y2="120" stroke="#e8b44a" stroke-width="4" stroke-linecap="round"/>
+        <line x1="45" y1="83" x2="63" y2="120" stroke="#e8b44a" stroke-width="4" stroke-linecap="round"/>
+        <line x1="27" y1="120" x2="14" y2="124" stroke="#e8b44a" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="63" y1="120" x2="76" y2="124" stroke="#e8b44a" stroke-width="3.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var singerL   = document.getElementById('singer-left');
+      var singerR   = document.getElementById('singer-right');
+      var noteChars = ['♪', '♫', '♬', '🎵', '🎶'];
+      var noteIvals = {};
+      var hideTmrs  = {};
+
+      function spawnNote(el, isLeft) {
+        var note = document.createElement('span');
+        note.className = 'music-note';
+        note.textContent = noteChars[Math.floor(Math.random() * noteChars.length)];
+        note.style.color = 'hsl(' + (34 + Math.random() * 30) + ',90%,' + (58 + Math.random() * 16) + '%)';
+        note.style.left  = (isLeft ? 28 + Math.random() * 52 : 8 + Math.random() * 52) + 'px';
+        note.style.top   = (4  + Math.random() * 36) + 'px';
+        note.style.animationDuration = (1.1 + Math.random() * .7) + 's';
+        el.appendChild(note);
+        setTimeout(function () { note.remove(); }, 2200);
+      }
+
+      function showSinger(el, side) {
+        if (el.classList.contains('visible')) return;
+        var isLeft = side === 'left';
+        el.classList.add('visible');
+        noteIvals[side] = setInterval(function () { spawnNote(el, isLeft); }, 360);
+        hideTmrs[side]  = setTimeout(function () {
+          el.classList.remove('visible');
+          clearInterval(noteIvals[side]);
+        }, 5400);
+      }
+
+      function scheduleNext() {
+        var delay = 7000 + Math.random() * 9000; // 7–16 сек между появлениями
+        setTimeout(function () {
+          var side = Math.random() < .5 ? 'left' : 'right';
+          showSinger(side === 'left' ? singerL : singerR, side);
+          scheduleNext();
+        }, delay);
+      }
+
+      // Первое появление — левый через 2.5 с, правый через 9 с
+      setTimeout(function () { showSinger(singerL, 'left'); }, 2500);
+      setTimeout(function () { showSinger(singerR, 'right'); }, 9000);
+      setTimeout(scheduleNext, 12000);
+    })();
+  </script>
 
 </body>
 </html>
